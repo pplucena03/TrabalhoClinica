@@ -1,7 +1,15 @@
-import Banco_de_Dados
 import os
 def Cadastro (escolha):
-    while(True):
+    while(True):        
+            print("------------------------")
+            print("Opção 1 - Médico")
+            print("Opção 2 - Especialidades")
+            print("Opçãp 3 - Pacientes")
+            print("Opção 4 - Endereço")
+            print("------------------------")
+            
+            escolha = input()
+                
             if escolha == '1':
                 os.system('cls')
                 print("teste")
