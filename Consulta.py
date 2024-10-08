@@ -6,7 +6,7 @@ def consulta():
             nome_medico = input("Digite o nome do Médico: ")
             data = input("Digite a data da consulta: ")
             
-            if
+        
             
         
             
