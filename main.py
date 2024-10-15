@@ -1,12 +1,10 @@
 import os
-from Cadastro import Cadastro
+from Cadastro import CadastroEspecialidade, CadastroMedico, CadastroPaciente, CadastroEndereco
 from Editor import Editor
-from Consulta import consulta
-
 
 while(True):
     print("\n")
-    print("bem vindo ao sistema ...")
+    print("Bem vindo ao sistema da clínica")
     print("\n")
     print("------------------------")
     print("Opção 1 - Cadastro")
@@ -16,19 +14,34 @@ while(True):
     print("Opção 5 - Excluir")
     print("------------------------")
     
-    opc = input()
+    opc = input("\nDigite a opção desejada: ")
     
     if opc == '1':
         os.system('cls')
-        Cadastro(opc)
-        break
-    elif opc == '2':
-        print("teste")
-    elif opc == '3':        
-        Editor(opc)
-    elif opc == '4':
-        consulta(opc)
-    elif opc == '5':
-        print("teste5")
-    else:
-        print("Opção Invalida. tente uma opção valida")
+
+        while(True):
+            print("------------------------")
+            print("Opção 1 - Especialidades")
+            print("Opção 2 - Médico")
+            print("Opçãp 3 - Pacientes")
+            print("Opção 4 - Endereço")
+            print("------------------------")
+
+            opc = input("\nDigite a opção desejada: ")
+
+            if opc == '1':
+                if CadastroEspecialidade():
+                    break
+
+            elif opc == '2':
+                CadastroMedico()
+
+            elif opc == '3':        
+                CadastroPaciente()
+
+            elif opc == '4':
+                CadastroEndereco()
+
+            else:
+                os.system('cls')
+                print("Opção Inválida, tente novamente")
