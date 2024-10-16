@@ -58,7 +58,10 @@ def ConsultarEspecialidade():
         query = "SELECT nome FROM especialidade"
         cursor.execute(query)
         resultado = cursor.fetchall()
-        print(f"Especilidades cadastradas: {resultado}") 
+        
+        print("\nEspecialidades cadastradas: ")
+        for i in range(0, len(resultado)):
+            print({resultado[i][0]}) 
 
     except Exception as e:
         print(f"Não foi possível buscar as especialidades: {e}")
@@ -73,7 +76,7 @@ def ConsultarMedico():
 
     try:
         cursor = conn.cursor()
-        query = "SELECT nome, crm, numero, especialidade.nome FROM medico INNER JOIN especialidade ON especialidade.id_especialidade = medico.id_especialidade"
+        query = "SELECT medico.nome, crm, numero, especialidade.nome FROM medico INNER JOIN especialidade ON especialidade.id_especialidade = medico.id_especialidade"
         cursor.execute(query)
         resultado = cursor.fetchall()
         print(f"Médicos cadastrados: {resultado}") 
