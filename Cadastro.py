@@ -122,4 +122,34 @@ def CadastroConsulta():
         print(f"Erro ao agendar consulta: {e}")
 
     finally:
-        cursor.close()        
+        cursor.close()  
+
+def CadastrarUsuario():
+    user = input("Digite um username: ")
+    senha = input("Digite uma senha: ")
+
+    conn = criar_conexao()
+
+    cursor = conn.cursor()
+    query = "SELECT username, senha FROM usuario WHERE username LIKE %s AND senha LIKE %s"
+    cursor.execute(query, (user, senha,))
+    retorno = cursor.fetchall()
+
+    if retorno:
+        print("Já existe um usuário com esse username e senha!\n Tente novamente...")
+        CadastrarUsuario()
+    else:
+        try:
+            query = "INSERT INTO usuario(username, senha) VALUES(%s, %s)"
+            cursor.execute(query, (user, senha,))
+            conn.commit()
+            print("Usuário cadastrado com sucesso!")
+        
+        except Exception as e:
+            print(f"Erro ao cadastrar usuário: {e}")
+        
+        finally:
+            cursor.close()
+            conn.close()
+            
+        return True

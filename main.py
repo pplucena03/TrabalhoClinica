@@ -1,10 +1,24 @@
 import os
-from cadastro import CadastroEspecialidade, CadastroMedico, CadastroPaciente, CadastroEndereco, CadastroConsulta
+from cadastro import CadastroEspecialidade, CadastroMedico, CadastroPaciente, CadastroEndereco, CadastroConsulta, CadastrarUsuario
 from editar import EditarMedico, EditarPaciente, EditarEndereco
 from consultar import ConsultarEndereco, ConsultarEspecialidade, ConsultarMedico, ConsultarPaciente
 from excluir import ExcluirEspecialidade, ExcluirMedico, ExcluirPaciente, ExcluirEndereco
+from login import FazerLogin
 
 while(True):
+    opc = input("Faça Login [1] ou Crie uma conta [2]: ")
+
+    if opc == '1':
+        FazerLogin()
+        break
+
+    elif opc == '2':
+        CadastrarUsuario()
+        
+    else:
+        print("Opção inválida, tente novamente...")
+
+while(True):       
     print("\n")
     print("Bem vindo ao sistema da clínica")
     print("\n")
