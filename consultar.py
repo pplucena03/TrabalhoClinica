@@ -1,5 +1,6 @@
 from config_bd import criar_conexao
 
+
 def BuscarEspecialidade(especialidade):
     conn = criar_conexao()
       
@@ -54,14 +55,19 @@ def ConsultarEspecialidade():
     conn = criar_conexao()
 
     try:
-        cursor = conn.cursor()
-        query = "SELECT nome FROM especialidade"
-        cursor.execute(query)
-        resultado = cursor.fetchall()
-        
-        print("\nEspecialidades cadastradas: ")
-        for i in range(0, len(resultado)):
-            print({resultado[i][0]}) 
+            cursor = conn.cursor()
+            query = "SELECT nome FROM especialidade"
+            cursor.execute(query)
+            resultado = cursor.fetchall()
+            
+            print("\nEspecialidades cadastradas: ")
+            for i in range(0, len(resultado)):
+                print({resultado[i][0]})
+            
+                
+    
+            
+            
 
     except Exception as e:
         print(f"Não foi possível buscar as especialidades: {e}")

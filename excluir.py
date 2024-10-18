@@ -1,5 +1,5 @@
 from config_bd import criar_conexao
-from consultar import ConsultarEspecialidade, ConsultarMedico, ConsultarPaciente, ConsultarEndereco, BuscarPaciente
+from consultar import ConsultarEspecialidade, ConsultarMedico, ConsultarPaciente, ConsultarEndereco, BuscarPaciente, BuscarMedico
 
 def ExcluirEspecialidade():
     ConsultarEspecialidade()
@@ -11,6 +11,7 @@ def ExcluirEspecialidade():
         cursor = conn.cursor()
         query = "DELETE FROM especialidade WHERE nome ILIKE %s"
         cursor.execute(query, (especialidade,))
+        conn.commit()
         print(f"{especialidade} excluída com sucesso!")
     
     except Exception as e:
@@ -21,15 +22,16 @@ def ExcluirEspecialidade():
         conn.close()
 
 def ExcluirMedico():
-    ConsultarMedico()
     medico = input("\nDigite o nome do médico que deseja excluir: ")
+    #id_medico = BuscarMedico(medico)
 
     conn = criar_conexao()
 
     try:
         cursor = conn.cursor()
-        query = "DELETE FROM medico WHERE nome ILIKE %s"
+        query = "DELETE FROM medico WHERE nome LIKE %s"
         cursor.execute(query, (medico,))
+        conn.commit()
         print(f"{medico} excluído(a) com sucesso!")
     
     except Exception as e:
@@ -49,6 +51,7 @@ def ExcluirPaciente():
         cursor = conn.cursor()
         query = "DELETE FROM endereco_paciente WHERE id_paciente = %s"
         cursor.execute(query, (id_paciente,))
+        conn.commit()
         print("Excluíndo dados do paciente....")
 
     except Exception as e:
@@ -59,8 +62,9 @@ def ExcluirPaciente():
 
     try:
         cursor = conn.cursor()
-        query = "DELETE FROM paciente WHERE nome ILIKE %s"
+        query = "DELETE FROM paciente WHERE nome LIKE %s"
         cursor.execute(query, (paciente,))
+        conn.commit()
         print(f"{paciente} excluído(a) com sucesso!")
     
     except Exception as e:
@@ -81,6 +85,7 @@ def ExcluirEndereco():
         cursor = conn.cursor()
         query = "DELETE FROM endereco WHERE id_paciente ILIKE %s"
         cursor.execute(query, (id_paciente,))
+        conn.commit()
         print("Endereço excluído com sucesso!")
     
     except Exception as e:

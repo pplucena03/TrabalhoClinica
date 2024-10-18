@@ -2,6 +2,7 @@ import os
 from config_bd import criar_conexao
 from consultar import BuscarEspecialidade, BuscarPaciente, BuscarMedico
 
+
 def CadastroEspecialidade():
     especialidade = input("Digite o nome de uma especialidade: ").lower()
     conn = criar_conexao()   
@@ -16,6 +17,10 @@ def CadastroEspecialidade():
         repetir = input("Deseja cadastrar outra? [S] ou [N]: ").lower()
         if repetir == 's':
             CadastroEspecialidade()
+        elif repetir == 'n':
+            pass
+        else:
+            print("Opção Invalida")
 
     except Exception as e:
         print(f"Erro ao cadastrar especialidade: {e}")

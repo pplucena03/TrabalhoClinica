@@ -6,20 +6,19 @@ def EditarMedico():
 
     conn = criar_conexao()
 
-    try:
-        cursor = conn.cursor()
-        query = "SELECT nome FROM medico WHERE nome ILIKE %s"
-        cursor.execute(query, (nome,))
-        busca = cursor.fetchone()
-        
-        if busca:
-            print(f"Médico encontrado! Digite os novos dados de {busca[0]}\n")
+    cursor = conn.cursor()
+    query = "SELECT nome FROM medico WHERE nome ILIKE %s"
+    cursor.execute(query, (nome_inicial,))
+    busca = cursor.fetchone()
+    
+    if busca:
+        print(f"Médico encontrado! Digite os novos dados de {busca[0]}\n")
 
-    except Exception as e:
-        print(f"Não foi possível encontrar o médico: {e}")
+    else:
+        print(f"Não foi possível encontrar o médico\n Tente novamente....\n")
+        EditarMedico()
 
-    finally:
-        cursor.close()
+    cursor.close()
 
     nome = input("Qual o nome do médico: ")
     crm = input(f"Qual o CRM do médico: ")

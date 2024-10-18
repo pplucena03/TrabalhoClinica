@@ -19,10 +19,12 @@ def FazerLogin():
         print("Logado com sucesso!")
         cursor.close()
         conn.close()
+        return False
 
     else:
         system('cls')
         print(f"Erro ao fazer o login! \n Tente novamente....\n")
         cursor.close()
         conn.close()
-        FazerLogin()
+        return True
+        
