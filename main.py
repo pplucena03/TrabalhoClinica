@@ -1,27 +1,47 @@
 import os
-from cadastro import CadastroEspecialidade, CadastroMedico, CadastroPaciente, CadastroEndereco, CadastroConsulta, CadastrarUsuario
-from editar import EditarMedico, EditarPaciente, EditarEndereco
-from consultar import ConsultarEndereco, ConsultarEspecialidade, ConsultarMedico, ConsultarPaciente
-from excluir import ExcluirEspecialidade, ExcluirMedico, ExcluirPaciente, ExcluirEndereco
-from login import FazerLogin
+import getpass
+from cadastro import cadastro_especialidade, cadastro_medico, cadastro_paciente, cadastro_endereco, cadastro_consulta
+from editar import editar_medico, editar_paciente, editar_endereco
+from consultar import consultar_endereco, consultar_especialidade, consultar_medico, consultar_paciente
+from excluir import excluir_especialidade, excluir_medico, excluir_paciente, excluir_endereco
+from usuario import fazer_login, cadastro_usuario, check_senha
 
 loop = True
-while loop == True:
-    opc = input("Faça Login [1] ou Crie uma conta [2]: ")
+while loop:
+    opc = input("Fazer Login [1], Criar uma conta [2], Entrar sem login [3] ou Sair [4]: ")
 
     if opc == '1':
-        loop = FazerLogin()
+        print("------------------------")
+        user = input("Digite o username: ")
+        senha = getpass.getpass("Digite sua senha: ")
+        print("------------------------\n")
+        loop = fazer_login(user, senha)
+
 
     elif opc == '2':
-        CadastrarUsuario()
-        
+        print("------------------------")
+        user = input("Digite o novo username: ")
+        senha = getpass.getpass("Digite a senha: ")
+        print("------------------------\n")
+        loop = cadastro_usuario(user, senha)
+    
+    elif opc == '3':
+        loop = False
+    
+    elif opc == '4':
+        os.system('cls')
+        exit()
     else:
+        os.system('cls') 
         print("Opção inválida, tente novamente...")
 
+print("\n")
+print("Bem vindo ao sistema da clínica")
+print("\n")
+
+
 while(True):       
-    print("\n")
-    print("Bem vindo ao sistema da clínica")
-    print("\n")
+    print("\nMENU PRINCIPAL")
     print("------------------------")
     print("Opção 1 - Cadastro")
     print("Opção 2 - Agendar Consulta")
@@ -37,6 +57,7 @@ while(True):
         os.system('cls')
 
         while(True):
+            print("     CADASTRAR")
             print("------------------------")
             print("Opção 1 - Especialidades")
             print("Opção 2 - Médico")
@@ -46,22 +67,19 @@ while(True):
             print("------------------------")
 
             opc = input("\nDigite a opção desejada: ")
+            
 
             if opc == '1':
-                CadastroEspecialidade()
-                break
+                cadastro_especialidade()
 
             elif opc == '2':
-                CadastroMedico()
-                break
+                cadastro_medico()
 
             elif opc == '3':        
-                CadastroPaciente()
-                break
+                cadastro_paciente()
 
             elif opc == '4':
-                CadastroEndereco()
-                break
+                cadastro_endereco()
 
             elif opc == '5':
                 break
@@ -71,13 +89,13 @@ while(True):
                 print("Opção Inválida, tente novamente")
     
     elif opc == '2':
-        CadastroConsulta()
-        break
+        cadastro_consulta()
 
     elif opc == '3':
         os.system('cls')
 
         while(True):
+            print("        EDITAR")
             print("------------------------")
             print("Opção 1 - Médico")
             print("Opçãp 2 - Pacientes")
@@ -88,16 +106,14 @@ while(True):
             opc = input("\nDigite a opção desejada: ")
 
             if opc == '1':
-                EditarMedico()
-                break
-
+                editar_medico()
+                
             elif opc == '2':
-                EditarPaciente()
-                break
+                editar_paciente()
 
             elif opc == '3':        
-                EditarEndereco()
-                break
+                editar_endereco()
+                
             elif opc == '4':
                 break
             else:
@@ -105,6 +121,40 @@ while(True):
                 print("Opção Inválida, tente novamente")       
 
     elif opc == '4':
+            os.system('cls')
+            while(True):
+                print("      CONSULTAR")
+                print("------------------------")
+                print("Opção 1 - Especialidades")
+                print("Opção 2 - Médico")
+                print("Opçãp 3 - Pacientes")
+                print("Opção 4 - Endereço")
+                print("Opção 5 - Sair")
+                print("------------------------")
+                opc = input("O que deseja consultar: \n")
+
+                if opc == '1':
+                    consultar_especialidade()
+
+                elif opc == '2':
+                    consultar_medico()
+                
+                elif opc == '3':
+                    consultar_paciente()
+
+                elif opc == '4':
+                    consultar_endereco()
+                    
+                elif opc == '5':
+                    break
+                else:
+                    os.system('cls')
+                    print("Opção inválida")
+    
+    elif opc == '5':
+        os.system('cls')
+        while(True):
+            print("        EXCLUIR")
             print("------------------------")
             print("Opção 1 - Especialidades")
             print("Opção 2 - Médico")
@@ -112,59 +162,26 @@ while(True):
             print("Opção 4 - Endereço")
             print("Opção 5 - Sair")
             print("------------------------")
-            opc = input("O que deseja consultar: ")
+            opc = input("O que deseja excluir: ")
 
             if opc == '1':
-                ConsultarEspecialidade()
-                break
+                excluir_especialidade()
 
             elif opc == '2':
-                ConsultarMedico()
-                break
+                excluir_medico()
             
             elif opc == '3':
-                ConsultarPaciente()
-                break
+                excluir_paciente()
 
             elif opc == '4':
-                ConsultarEndereco()
-                break
+                excluir_endereco()
+                
             elif opc == '5':
                 break
+
             else:
                 os.system('cls')
-                print("Opção inválida")
-    
-    elif opc == '5':
-        print("------------------------")
-        print("Opção 1 - Especialidades")
-        print("Opção 2 - Médico")
-        print("Opçãp 3 - Pacientes")
-        print("Opção 4 - Endereço")
-        print("Opção 5 - Sair")
-        print("------------------------")
-        opc = input("O que deseja excluir: ")
-
-        if opc == '1':
-            ExcluirEspecialidade()
-            break
-
-        elif opc == '2':
-            ExcluirMedico()
-            break
-        
-        elif opc == '3':
-            ExcluirPaciente()
-            break
-
-        elif opc == '4':
-            ExcluirEndereco()
-            break
-        elif opc == '5':
-            break
-        else:
-            os.system('cls')
-            print("Opção inválida") 
+                print("Opção inválida") 
 
 
     elif opc == '6':

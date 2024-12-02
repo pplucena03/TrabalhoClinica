@@ -1,7 +1,7 @@
 from config_bd import criar_conexao
-from consultar import BuscarEspecialidade, BuscarPaciente
+from consultar import buscar_especialidade, buscar_paciente
 
-def EditarMedico():
+def editar_medico():
     nome_inicial = input("Digite o nome do médico que deseja editar: ")
 
     conn = criar_conexao()
@@ -16,7 +16,7 @@ def EditarMedico():
 
     else:
         print(f"Não foi possível encontrar o médico\n Tente novamente....\n")
-        EditarMedico()
+        editar_medico()
 
     cursor.close()
 
@@ -27,7 +27,7 @@ def EditarMedico():
     numero = input(f"Qual o numero do médico: ")
     especialidade = input(f"Qual a especialidade do médico: ")
 
-    id_especialidade = BuscarEspecialidade(especialidade)
+    id_especialidade = buscar_especialidade(especialidade)
 
     try:
         cursor = conn.cursor()
@@ -38,7 +38,7 @@ def EditarMedico():
 
         repetir = input("Deseja editar outro? [S] ou [N]: ").lower()
         if repetir == 's':
-            EditarMedico()
+            editar_medico()
 
     except Exception as e:
         print(f"Erro ao editar o médico: {e}")
@@ -46,7 +46,7 @@ def EditarMedico():
         cursor.close()
         conn.close()
 
-def EditarPaciente():
+def editar_paciente():
     nome_inicial = input("Digite o nome do paciente que deseja editar: ")
 
     conn = criar_conexao()
@@ -80,7 +80,7 @@ def EditarPaciente():
 
         repetir = input("Deseja editar outro? [S] ou [N]: ").lower()
         if repetir == 's':
-            EditarPaciente()
+            editar_paciente()
 
     except Exception as e:
         print(f"Erro ao editar o paciente: {e}")
@@ -88,9 +88,9 @@ def EditarPaciente():
         cursor.close()
         conn.close()
 
-def EditarEndereco():
+def editar_endereco():
     paciente = input("Digite o nome do paciente que deseja editar o endereço: ")
-    id_paciente = BuscarPaciente(paciente)
+    id_paciente = buscar_paciente(paciente)
     
     conn = criar_conexao()
 
@@ -107,7 +107,7 @@ def EditarEndereco():
 
         repetir = input("Deseja editar outro? [S] ou [N]: ").lower()
         if repetir == 's':
-            EditarEndereco()
+            editar_endereco()
 
     except Exception as e:
         print(f"Erro ao editar o endereço: {e}")

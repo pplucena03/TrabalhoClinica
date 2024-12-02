@@ -1,7 +1,8 @@
 from config_bd import criar_conexao
+import time
 
 
-def BuscarEspecialidade(especialidade):
+def buscar_especialidade(especialidade):
     conn = criar_conexao()
       
     try:
@@ -17,7 +18,7 @@ def BuscarEspecialidade(especialidade):
 
     return id_especialidade[0]
 
-def BuscarPaciente(paciente):
+def buscar_paciente(paciente):
     conn = criar_conexao()
       
     try:
@@ -34,7 +35,7 @@ def BuscarPaciente(paciente):
     return id_paciente[0]
 
 
-def BuscarMedico(medico):
+def buscar_medico(medico):
     conn = criar_conexao()
       
     try:
@@ -51,23 +52,21 @@ def BuscarMedico(medico):
     return id_medico[0]
 
 
-def ConsultarEspecialidade():
+def consultar_especialidade():
     conn = criar_conexao()
 
     try:
-            cursor = conn.cursor()
-            query = "SELECT nome FROM especialidade"
-            cursor.execute(query)
-            resultado = cursor.fetchall()
-            
-            print("\nEspecialidades cadastradas: ")
-            for i in range(0, len(resultado)):
-                print({resultado[i][0]})
-            
-                
-    
-            
-            
+        cursor = conn.cursor()
+        query = "SELECT nome FROM especialidade"
+        cursor.execute(query)
+        resultado = cursor.fetchall()
+        
+        print("\nEspecialidades cadastradas: ")
+        for i in range(0, len(resultado)):
+            print({resultado[i][0]})
+
+        print("Precione Enter para continuar...")
+        input()
 
     except Exception as e:
         print(f"Não foi possível buscar as especialidades: {e}")
@@ -77,7 +76,7 @@ def ConsultarEspecialidade():
         conn.close()
 
 
-def ConsultarMedico():
+def consultar_medico():
     conn = criar_conexao()
 
     try:
@@ -85,7 +84,11 @@ def ConsultarMedico():
         query = "SELECT medico.nome, crm, numero, especialidade.nome FROM medico INNER JOIN especialidade ON especialidade.id_especialidade = medico.id_especialidade"
         cursor.execute(query)
         resultado = cursor.fetchall()
-        print(f"Médicos cadastrados: {resultado}") 
+        print("----- Médicos cadastrados -----")
+        for i in range(0, len(resultado)):
+            print(f"Nome: {resultado[i][0]} \nCRM: {resultado[i][1]} \nNúmero: {resultado[i][2]} \nEspecialidade: {resultado[i][3]} \n-------------") 
+        print("Precione Enter para continuar...")
+        input()
 
     except Exception as e:
         print(f"Não foi possível buscar os médicos: {e}")
@@ -95,7 +98,7 @@ def ConsultarMedico():
         conn.close()
 
 
-def ConsultarPaciente():
+def consultar_paciente():
     conn = criar_conexao()
 
     try:
@@ -103,7 +106,12 @@ def ConsultarPaciente():
         query = "SELECT nome, data_nasc, sexo, telefone FROM paciente"
         cursor.execute(query)
         resultado = cursor.fetchall()
-        print(f"Pacientes cadastrados: {resultado}") 
+        print("\n--- Pacientes cadastrados ---")
+        for i in range(0, len(resultado)):
+            print(f"Nome: {resultado[i][0]} \nData de Nascimento: {resultado[i][1]} \nSexo: {resultado[i][2]} \nTelefone: {resultado[i][3]} \n-------------") 
+        
+        print("Precione Enter para continuar...")
+        input()
 
     except Exception as e:
         print(f"Não foi possível buscar os pacientes: {e}")
@@ -113,7 +121,7 @@ def ConsultarPaciente():
         conn.close()
 
 
-def ConsultarEndereco():
+def consultar_endereco():
     conn = criar_conexao()
 
     try:
@@ -121,7 +129,20 @@ def ConsultarEndereco():
         query = "SELECT rua, bairro, cidade, paciente.nome FROM endereco_paciente INNER JOIN paciente ON endereco_paciente.id_paciente = paciente.id_paciente"
         cursor.execute(query)
         resultado = cursor.fetchall()
-        print(f"Endereços de pacientes cadastrados: {resultado}") 
+        print("---- Endereços de pacientes cadastrados ----\n")
+        for i in range(0, len(resultado)):
+            print(f"Rua: {resultado[i][0]} \nBairro: {resultado[i][1]} \nCidade: {resultado[i][2]} \nPaciente: {resultado[i][3]} \n---------------\n")
+
+        opcao =  input("Deseja realizar mais alguma ação? [S] ou [N]: ").lower()
+        if opcao == 's':
+            time.sleep(1)
+            pass
+        elif opcao == 'n':
+            exit()
+        else:
+            print("\nOpção inválida!")
+            time.sleep(1)
+            pass 
 
     except Exception as e:
         print(f"Não foi possível buscar os endereços: {e}")

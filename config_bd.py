@@ -13,8 +13,7 @@ def criar_conexao():
 
            port='5432',
         )
-
-       #print("Conexão realizada com sucesso!")
+       
        return conn
    
    except Exception as exc:

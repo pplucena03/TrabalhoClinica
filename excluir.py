@@ -1,8 +1,8 @@
 from config_bd import criar_conexao
-from consultar import ConsultarEspecialidade, ConsultarMedico, ConsultarPaciente, ConsultarEndereco, BuscarPaciente, BuscarMedico
+from consultar import consultar_especialidade, consultar_medico, consultar_paciente, consultar_endereco, buscar_paciente, buscar_medico
 
-def ExcluirEspecialidade():
-    ConsultarEspecialidade()
+def excluir_especialidade():
+    consultar_especialidade()
     especialidade = input("\nDigite a especialidade que deseja excluir: ")
 
     conn = criar_conexao()
@@ -21,9 +21,9 @@ def ExcluirEspecialidade():
         cursor.close()
         conn.close()
 
-def ExcluirMedico():
+def excluir_medico():
     medico = input("\nDigite o nome do médico que deseja excluir: ")
-    #id_medico = BuscarMedico(medico)
+    #id_medico = buscar_medico(medico)
 
     conn = criar_conexao()
 
@@ -41,10 +41,10 @@ def ExcluirMedico():
         cursor.close()
         conn.close()
         
-def ExcluirPaciente():
-    ConsultarPaciente()
+def excluir_paciente():
+    consultar_paciente()
     paciente = input("\nDigite o nome do paciente que deseja excluir: ")
-    id_paciente = BuscarPaciente(paciente)
+    id_paciente = buscar_paciente(paciente)
     conn = criar_conexao()
 
     try:
@@ -74,10 +74,10 @@ def ExcluirPaciente():
         cursor.close()
         conn.close()
 
-def ExcluirEndereco():
-    ConsultarEndereco()
+def excluir_endereco():
+    consultar_endereco()
     endereco = input("\nDigite o nome do paciente referente ao endereço que deseja excluir: ")
-    id_paciente = BuscarPaciente(endereco)
+    id_paciente = buscar_paciente(endereco)
 
     conn = criar_conexao()
 

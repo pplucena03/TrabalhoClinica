@@ -1,9 +1,9 @@
 import os
 from config_bd import criar_conexao
-from consultar import BuscarEspecialidade, BuscarPaciente, BuscarMedico
+from consultar import buscar_especialidade, buscar_paciente, buscar_medico
 
 
-def CadastroEspecialidade():
+def cadastro_especialidade():
     especialidade = input("Digite o nome de uma especialidade: ").lower()
     conn = criar_conexao()   
 
@@ -16,7 +16,7 @@ def CadastroEspecialidade():
 
         repetir = input("Deseja cadastrar outra? [S] ou [N]: ").lower()
         if repetir == 's':
-            CadastroEspecialidade()
+            cadastro_especialidade()
         elif repetir == 'n':
             pass
         else:
@@ -29,7 +29,7 @@ def CadastroEspecialidade():
         cursor.close()
         conn.close()
 
-def CadastroMedico():       
+def cadastro_medico():       
     nome = input("Qual o nome do médico: ")
     crm = input(f"Qual o CRM do médico: ")
     data_nasc = input(f"Qual a data de nascimento do médico: ")
@@ -38,7 +38,7 @@ def CadastroMedico():
     especialidade = input(f"Qual a especialidade do médico: ")
 
     conn = criar_conexao()   
-    id_especialidade = BuscarEspecialidade(especialidade)
+    id_especialidade = buscar_especialidade(especialidade)
     
     try:
         cursor = conn.cursor()
@@ -49,7 +49,7 @@ def CadastroMedico():
 
         repetir = input("Deseja cadastrar outro? [S] ou [N]: ").lower()
         if repetir == 's':
-            CadastroMedico()
+            cadastro_medico()
 
     except Exception as e:
         print(f"Erro ao cadastrar médico: {e}")
@@ -57,7 +57,7 @@ def CadastroMedico():
         cursor.close()
         conn.close()
 
-def CadastroPaciente():         
+def cadastro_paciente():         
     nome = input("Qual o nome do paciente: ")
     data_nasc = input("Qual a data de nascimento do paciente(DD-MM-AAAA): ")
     sexo = input("Qual o sexo do paciente: ")
@@ -74,7 +74,7 @@ def CadastroPaciente():
 
         repetir = input("Deseja cadastrar outro? [S] ou [N]: ").lower()
         if repetir == 's':
-            CadastroPaciente()
+            cadastro_paciente()
     
     except Exception as e:
         print(f"Erro ao cadastrar paciente: {e}") 
@@ -83,14 +83,14 @@ def CadastroPaciente():
         cursor.close()
         conn.close()
     
-def CadastroEndereco():
+def cadastro_endereco():
     paciente = input("Qual o nome do paciente: ")
     rua = input("Qual a rua que o paciente mora: ")
     bairro = input("Qual bairro o paciente mora: ")
     cidade = input("Qual cidade o paciente mora: ")
 
     conn = criar_conexao()
-    id_paciente = BuscarPaciente(paciente)
+    id_paciente = buscar_paciente(paciente)
 
     try:
         cursor = conn.cursor()
@@ -105,7 +105,7 @@ def CadastroEndereco():
         cursor.close()
         conn.close()
         
-def CadastroConsulta():
+def cadastro_consulta():
 
     paciente = input("Qual paciente será consultado: ")
     medico = input("Qual médico realizará a consulta: ")
@@ -114,8 +114,8 @@ def CadastroConsulta():
 
     conn = criar_conexao()
     
-    id_paciente = BuscarPaciente(paciente)
-    id_medico = BuscarMedico(medico)
+    id_paciente = buscar_paciente(paciente)
+    id_medico = buscar_medico(medico)
 
     try:
         cursor = conn.cursor()
@@ -128,33 +128,3 @@ def CadastroConsulta():
 
     finally:
         cursor.close()  
-
-def CadastrarUsuario():
-    user = input("Digite um username: ")
-    senha = input("Digite uma senha: ")
-
-    conn = criar_conexao()
-
-    cursor = conn.cursor()
-    query = "SELECT username, senha FROM usuario WHERE username LIKE %s AND senha LIKE %s"
-    cursor.execute(query, (user, senha,))
-    retorno = cursor.fetchall()
-
-    if retorno:
-        print("Já existe um usuário com esse username e senha!\n Tente novamente...")
-        CadastrarUsuario()
-    else:
-        try:
-            query = "INSERT INTO usuario(username, senha) VALUES(%s, %s)"
-            cursor.execute(query, (user, senha,))
-            conn.commit()
-            print("Usuário cadastrado com sucesso!")
-        
-        except Exception as e:
-            print(f"Erro ao cadastrar usuário: {e}")
-        
-        finally:
-            cursor.close()
-            conn.close()
-            
-        return True
